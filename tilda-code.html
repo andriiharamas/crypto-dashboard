@@ -1,0 +1,32 @@
+```html
+<div class="container">
+  <h2>Crypto Dashboard v1.0.0</h2>
+  <p>Текущая цена SOL: <span id="priceSOL">Загрузка...</span></p>
+  <p>Текущая цена BTC: <span id="priceBTC">Загрузка...</span></p>
+  <p>Текущая цена ETH: <span id="priceETH">Загрузка...</span></p>
+</div>
+
+<script>
+  const SERVER = "http://65.21.188.247:3000"; // Замените на ваш IP
+
+  async function fetchPrice(symbol, elementId) {
+    try {
+      const res = await fetch(`${SERVER}/api/price?symbol=${symbol}`);
+      const data = await res.json();
+      document.getElementById(elementId).innerText = data.price;
+    } catch (err) {
+      document.getElementById(elementId).innerText = "Ошибка";
+    }
+  }
+
+  function loadPrices() {
+    fetchPrice("SOL_USDT", "priceSOL");
+    fetchPrice("BTC_USDT", "priceBTC");
+    fetchPrice("ETH_USDT", "priceETH");
+  }
+
+  loadPrices();
+</script>
+```
+
+---
